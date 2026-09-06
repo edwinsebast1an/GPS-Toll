@@ -1,79 +1,43 @@
-# HelpHub — Medical Crowdfunding Platform
+# GPS Based Toll Collection System
 
-## Problem 
+A multi-component toll management system with a Python (Flask) web admin panel, an Android mobile app, and a Java Swing server for device simulation.
 
-Many patients are unable to afford medical treatment due to financial limitations. Existing fundraising options — social media, individual charity organizations, offline fundraising — are not centralized, lack proper monitoring, and have no structured way to verify patient requirements or track where donations actually go.
+## About This Project
 
-## Solution
+This was my academic mini project, built with my team. Toll systems like FASTag rely on gantries with RFID readers, and those are expensive to set up and maintain. If a gantry breaks down, toll collection at that spot just stops working. This project uses a vehicle's GPS location instead of physical infrastructure on the road.
 
-HelpHub is a web-based medical crowdfunding platform that connects hospitals and patients in need of financial support with donors willing to contribute toward treatment costs, with a structured approval process in between.
+**How it works:** 
 
-**Modules:**
-- **Admin** — approves and monitors fund requests, views donation details and funding progress, manages donors and receivers
-- **Hospital** — registers on the platform, registers patients with treatment details, forwards fund requests to Admin for approval, and tracks funded patients
-- **Public User (Donor)** — views active campaigns, donates, sends feedback, and tracks donation history
+A microcontroller with GPS connectivity sits in the vehicle and continuously tracks its location. The system compares those coordinates with toll zone coordinates stored in the database, and when they match, the toll amount gets deducted automatically from the user's wallet. It also checks the vehicle's speed against the legal limit for that road and raises a fine if it's crossed. Since we didn't have access to real GPS hardware, we built a Java Swing simulator (SwingServer) to demo vehicles moving through toll zones and triggering tolls and fines.
 
-**Key features:**
-- Centralized, structured fund request flow: Hospital submits → Admin verifies and records → Donors give → Admin confirms and analyzes
-- Real-time donation tracking and a centralized database for campaigns and donations
+**What I learned:** 
+
+This project pushed me to think about how multiple parts of a system — a web app, a mobile app, and a simulation tool — work together through a shared database.
+
+## Features
+
+- GPS-based automatic toll detection and collection
+- Android app with wallet, payment, and fine/toll deduction history
+- Admin web panel to manage toll rates, locations, and violations
+- Automated speed violation detection and fine management
+- User registration, login, and feedback system
+- Java Swing server for device simulation and data management
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Python, Django Framework
-- **Database:** MySQL Server
+- **Web:** Python, Flask, MySQL
+- **Mobile:** Android (Java)
+- **Server:** Java Swing
+- **Database:** MySQL
 
-## Screenshots
-**Home Page**
+## How to Run
 
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/d29fbd07-59a5-42b7-973e-59c59f33e575" />
+### Web Admin
+```bash
+pip install flask mysql-connector-python
+python Home.py
+```
 
-**Login**
+### Android App
+Open the Android project folder in Android Studio, build the project, and install it on a device or emulator to register, view toll zones, manage your wallet, and track tolls in real time.
 
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/15eaec22-6c59-47d1-a1a6-2718d48f8ac7" />
-
-**Admin Dashboard**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/eaeee670-b3c2-4273-823d-9abb2c7c6e61" />
-
-**Patient Funding Approval**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/35aeeef5-adb1-4edb-afff-7f57d7e1e551" />
-
-**Registered Donors**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/9077dfde-701b-491b-af7e-d96ae2addb13" />
-
-**Hospital Dashboard**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/87a9f87f-7b7f-4063-8039-69619574277c" />
-
-**Patient Details**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/4567526d-c1ee-4459-a52d-d3e6defdb8f5" />
-
-**Donor Registration**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/b6518f12-efe4-4988-aa68-134817c7f9cc" />
-
-**Patient Portal Dashboard**
-
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/404b6c84-55e9-43c1-b467-14a6ee6c8117" />
-
-
-## Future Improvements
-
-- Mobile application (Android and iOS) for easier access
-- Real-time notification system — SMS and email alerts for donation updates
-- Multilingual support for wider reach
-- Chatbot assistance — AI chatbot to guide users during donation
-- Subscription-based donations (monthly or yearly recurring)
-- Emergency case prioritization — auto-highlight urgent medical cases
-
-### How to Run
-pip install django
-python manage.py runserver
-
-Then open http://127.0.0.1:8000
-
--- Academic Project --
